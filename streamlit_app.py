@@ -159,7 +159,7 @@ def download_button_from_df(df: pd.DataFrame, label: str, fname: str):
 # 사이드바
 # =========================================================
 st.sidebar.header("⚙️ 보기 설정")
-page = st.sidebar.radio("대시보드 선택", ["① 공개 데이터", "② 사용자 입력(이미지/설명)"], index=0)
+page = st.sidebar.radio("대시보드 선택", ["① 공개 데이터", "② 사용자 입력(이미지/설명)", "③ 보고서"], index=0)
 
 # =========================================================
 # ① 사용자 입력(이미지/설명) 기반 대시보드  ← 원래 ② 코드
@@ -351,3 +351,75 @@ if page == "② 사용자 입력(이미지/설명)":
             "  - https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv"
         )
         st.caption("주의: 단순 연도 매칭 상관은 인과를 의미하지 않습니다. 교란변수 통제가 필요합니다.")
+
+if page == "③ 보고서":
+    REPORT_TITLE = "대한민국 청소년의 기후 위기로 인한 심리적 위기와 대응 방안"
+    REPORT_AUTHOR = "작성: (자동보고서) — Streamlit 앱"
+    # Sections: use user's text blocks as HTML (basic conversion)
+    SECTION_INTRO = """
+    <p>기후 위기는 단순한 환경 문제를 넘어 청소년의 정신 건강에 심각하고 광범위한 영향을 미치는 사회적 위협이다. 
+    청소년들은 기후 위기에 대한 책임이 거의 없음에도 불구하고, 그로 인한 불확실한 미래를 가장 직접적으로 마주해야 하는 세대이기 때문이다. 
+    이들은 예측 불가능한 자연재해, 사회경제적 불안정, 그리고 점차 악화되는 지구 환경 속에서 삶의 희망을 잃고 무력감과 절망감에 갇히게 된다. 
+    이 보고서는 기후 위기가 청소년의 정신 건강에 미치는 영향을 데이터와 사례를 통해 객관적으로 탐구하고, 왜 이 문제가 지금 당장 우리에게 중요한지 증명하고자 한다.</p>
+    """
+
+    SECTION_BODY1 = """
+    <p><strong>기후 변화에 대한 청소년의 태도</strong><br>
+    The Lancet Planetary Health 조사에 따르면 청소년 및 청년층의 약 59%가 기후 변화에 대해 매우 또는 극도로 걱정하고 있으며, 45% 이상이 기후 변화 관련 감정이 일상생활과 기능에 부정적 영향을 미친다고 응답했습니다.</p>
+    <p>기후변화 관련 신조어로는 <em>기후슬픔, 생태슬픔, 솔라스탤지어(Solastalgia), 기후염려증</em> 등이 있으며, 기후변화로 인한 무력감·우울·절망을 설명합니다.</p>
+    """
+
+    SECTION_BODY1_2 = """
+    <p><strong>기온 상승과 자살률 변화의 상관관계</strong><br>
+    스탠퍼드 자료(설명 기반 유사 재현)는 평균 기온 상승과 자살률 증가의 경향을 보여줍니다. 
+    미국과 멕시코의 사례 비교에서 기온 상승 구간에서 자살률이 증가하는 패턴이 관찰되었으며, 특히 20°C를 넘는 구간에서 증가폭이 두드러졌습니다. 
+    이는 기온 상승이 정신적 불안정과 자살 위험을 심화시킬 수 있음을 시사합니다.</p>
+    """
+
+    SECTION_BODY2 = """
+    <p><strong>기후 위기가 청소년 정신건강에 미치는 영향</strong><br>
+    <ul>
+    <li><strong>기후 불안 (Eco-anxiety)</strong>: 미래에 대한 만성적 불안과 두려움. 집중력 저하, 사회적 위축 등으로 이어짐.</li>
+    <li><strong>외상 후 스트레스 장애 (PTSD)</strong>: 홍수·산불 등 극한 기상 현상 경험자는 장기적 트라우마 위험 증가.</li>
+    <li><strong>사회적 관계의 긴장</strong>: 세대 간 인식 차이와 갈등으로 가정·학교 내 긴장 심화.</li>
+    </ul>
+    <p>따라서 기후 위기로 인한 정신적 어려움은 개인의 문제가 아니라 사회적 과제로서, 청소년의 정서 회복과 예방적 대응이 필요합니다.</p>
+    """
+
+    SECTION_CONCLUSION = """
+    <p><strong>결론 — 기후 우울 극복 및 실천 제안</strong>
+    <p>다음 세 가지 행동을 제안합니다.</p>
+    <ol>
+    <li><strong>소통과 연대</strong>: 기후 우울을 혼자 감당하지 말고 또래·가족·커뮤니티와 감정을 나누는 소그룹 활동을 권장합니다.</li>
+    <li><strong>자연과의 접촉</strong>: 산림 치유·공원 산책 등 자연 체험을 통한 정서 회복(‘자연 처방’)을 장려합니다.</li>
+    <li><strong>감정의 생산적 전환</strong>: 연구·창작(설문·분석·영상 등)으로 두려움을 행동으로 연결하고 희망 메시지를 확산합니다.</li>
+    </ol>
+    """
+
+    SECTION_ACTIONS = """
+    <p><strong>학생 차원의 실천 제안</strong>
+    <ul>
+    <li>설문·데이터 분석·에세이·영상 제작 등으로 기후 불안 감정 기록 및 공유</li>
+    <li>학교 단위로 희망적 메시지를 담은 캠페인 기획</li>
+    <li>정기적 소그룹 모임을 통한 감정공유와 상호지지</li>
+    <li>산림 치유 및 자연체험 활동 정례화</li>
+    </ul>
+    </p>
+    """
+
+    SECTION_REFERENCES = """
+    <p><strong>참고자료</strong><br>
+    - CBS News: https://www.cbsnews.com/news/climate-change-anxiety/<br>
+    - 한국보건사회연구원: https://www.kihasa.re.kr/hswr/assets/pdf/1456/journal-44-1-245.pdf<br>
+    - 경향신문, 한겨레, OhmyNews 등 (본문 링크 포함)<br>
+    - World Bank API / NASA GISTEMP (시각화 데이터 출처)</p>
+    """
+    st.markdown("---")
+    st.subheader("보고서 본문 (초안)")
+    st.markdown(SECTION_INTRO, unsafe_allow_html=True)
+    st.markdown(SECTION_BODY1, unsafe_allow_html=True)
+    st.markdown(SECTION_BODY1_2, unsafe_allow_html=True)
+    st.markdown(SECTION_BODY2, unsafe_allow_html=True)
+    st.markdown(SECTION_CONCLUSION, unsafe_allow_html=True)
+    st.markdown(SECTION_ACTIONS, unsafe_allow_html=True)
+    st.markdown(SECTION_REFERENCES, unsafe_allow_html=True)
